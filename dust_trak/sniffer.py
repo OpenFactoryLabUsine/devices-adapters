@@ -6,7 +6,7 @@ from datetime import datetime
 
 import pyshark
 
-from dust_trak.dust_trak_initializer import DustTrakInitializer
+from dust_trak.initializer import DustTrakInitializer
 
 
 class DustTrakSniffer:

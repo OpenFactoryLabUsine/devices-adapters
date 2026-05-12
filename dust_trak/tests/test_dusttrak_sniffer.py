@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from dust_trak.dust_trak_sniffer import DustTrakSniffer
+from dust_trak.sniffer import DustTrakSniffer
 
 
 @pytest.fixture

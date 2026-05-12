@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 import pytest
 
-from dust_trak.dust_trak_initializer import DustTrakInitializer
+from dust_trak.initializer import DustTrakInitializer
 
 
 @pytest.fixture

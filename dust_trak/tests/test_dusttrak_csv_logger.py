@@ -2,7 +2,7 @@ from unittest.mock import MagicMock, mock_open, patch
 
 import pytest
 
-from dust_trak.dust_trak_csv_logger import DustTrakCSVLogger
+from dust_trak.csv_logger import DustTrakCSVLogger
 
 
 @pytest.fixture
@@ -23,7 +23,7 @@ class TestWriteToCsv:
         m = mock_open()
         with (
             patch("builtins.open", m),
-            patch("dust_trak.dust_trak_csv_logger.datetime") as mock_dt,
+            patch("dust_trak.csv_logger.datetime") as mock_dt,
         ):
             mock_dt.today.return_value.strftime.return_value = "2026-05-07"
             mock_dt.now.return_value.strftime.return_value = "2026-05-07 01:00:00"
@@ -35,7 +35,7 @@ class TestWriteToCsv:
         m = mock_open()
         with (
             patch("builtins.open", m),
-            patch("dust_trak.dust_trak_csv_logger.datetime") as mock_dt,
+            patch("dust_trak.csv_logger.datetime") as mock_dt,
         ):
             mock_dt.today.return_value.strftime.return_value = "2026-05-07"
             mock_dt.now.return_value.strftime.return_value = "2026-05-07 01:00:00"
@@ -54,8 +54,8 @@ class TestWriteToCsv:
         m = mock_open()
         with (
             patch("builtins.open", m),
-            patch("dust_trak.dust_trak_csv_logger.csv.DictWriter", return_value=mock_writer),
-            patch("dust_trak.dust_trak_csv_logger.datetime") as mock_dt,
+            patch("dust_trak.csv_logger.csv.DictWriter", return_value=mock_writer),
+            patch("dust_trak.csv_logger.datetime") as mock_dt,
         ):
             mock_dt.today.return_value.strftime.return_value = "2026-05-07"
             mock_dt.now.return_value.strftime.return_value = "2026-05-07 01:00:00"

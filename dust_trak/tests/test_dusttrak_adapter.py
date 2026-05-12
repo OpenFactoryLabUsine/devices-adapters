@@ -4,8 +4,8 @@ from unittest.mock import MagicMock, mock_open, patch
 
 import pytest
 
-from dust_trak.dust_trak_adapter import DustTrak
-from dust_trak.dust_trak_initializer import DustTrakInitializer
+from dust_trak.adapter import DustTrak
+from dust_trak.initializer import DustTrakInitializer
 
 MOCK_CONFIG = {
     "data_export_type": "openfactory",
@@ -18,7 +18,7 @@ MOCK_CONFIG = {
 def adapter():
     with (
         patch("builtins.open", mock_open(read_data=json.dumps(MOCK_CONFIG))),
-        patch("dust_trak.dust_trak_adapter.os.path.dirname", return_value="/fake/dir"),
+        patch("dust_trak.adapter.os.path.dirname", return_value="/fake/dir"),
         patch.object(DustTrakInitializer, "launch_dust_trak_monitoring"),
     ):
         return DustTrak()
@@ -28,7 +28,7 @@ def adapter():
 def virtual_adapter():
     with (
         patch("builtins.open", mock_open(read_data=json.dumps(MOCK_CONFIG))),
-        patch("dust_trak.dust_trak_adapter.os.path.dirname", return_value="/fake/dir"),
+        patch("dust_trak.adapter.os.path.dirname", return_value="/fake/dir"),
     ):
         return DustTrak(virtual=True)
 

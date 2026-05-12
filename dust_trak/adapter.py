@@ -3,9 +3,9 @@ import os
 import random
 import threading
 
-from dust_trak.dust_trak_csv_logger import DustTrakCSVLogger
-from dust_trak.dust_trak_initializer import DustTrakInitializer
-from dust_trak.dust_trak_sniffer import DustTrakSniffer
+from dust_trak.csv_logger import DustTrakCSVLogger
+from dust_trak.initializer import DustTrakInitializer
+from dust_trak.sniffer import DustTrakSniffer
 
 
 class DustTrak:

@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from dust_trak.dust_trak_adapter import DustTrak
+from dust_trak.adapter import DustTrak
 from opcua_base.opcua_server import OPCUAServer
 
 

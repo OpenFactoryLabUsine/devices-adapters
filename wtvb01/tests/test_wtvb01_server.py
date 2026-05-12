@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 import pytest_asyncio
 
-from wtvb01.wtvb01_server import WTVB01Server
+from wtvb01.server import WTVB01Server
 
 ANY_VALID_DATA = {
     "temp": 25.0,
@@ -34,7 +34,7 @@ def mock_adapter():
 
 @pytest_asyncio.fixture
 async def server(opcua_endpoint, mock_adapter):
-    with patch("wtvb01.wtvb01_server.WTVB01", return_value=mock_adapter):
+    with patch("wtvb01.server.WTVB01", return_value=mock_adapter):
         s = WTVB01Server(endpoint=opcua_endpoint)
         await s.start()
         yield s

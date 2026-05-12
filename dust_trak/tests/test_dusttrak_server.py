@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 import pytest_asyncio
 
-from dust_trak.dust_trak_server import DustTrakServer
+from dust_trak.server import DustTrakServer
 
 ANY_VALID_DATA = {
     "pm1_concentration": 1.5,
@@ -22,7 +22,7 @@ def mock_adapter():
 
 @pytest_asyncio.fixture
 async def server(opcua_endpoint, mock_adapter):
-    with patch("dust_trak.dust_trak_server.DustTrak", return_value=mock_adapter):
+    with patch("dust_trak.server.DustTrak", return_value=mock_adapter):
         s = DustTrakServer(endpoint=opcua_endpoint)
         await s.start()
         yield s
@@ -91,7 +91,7 @@ class TestDustTrakServerPublishing:
 
     @pytest.mark.asyncio
     async def test_start_capture_called_in_real_mode(self, opcua_endpoint, mock_adapter):
-        with patch("dust_trak.dust_trak_server.DustTrak", return_value=mock_adapter):
+        with patch("dust_trak.server.DustTrak", return_value=mock_adapter):
             s = DustTrakServer(endpoint=opcua_endpoint, use_virtual_device=False)
             await s.start()
             mock_adapter.start_capture.assert_called_once()
