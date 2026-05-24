@@ -57,5 +57,5 @@ jobs:
           file: ${{ matrix.device.dir }}/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/${{ matrix.device.image }}:latest
-            ghcr.io/${{ github.repository_owner }}/${{ matrix.device.image }}:${{ github.sha }}
+            ghcr.io/${{ env.repository_owner }}/${{ matrix.device.image }}:latest
+            ghcr.io/${{ env.repository_owner }}/${{ matrix.device.image }}:${{ github.sha }}
