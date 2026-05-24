@@ -8,8 +8,16 @@ class OPCUAServer:
         self.server = None
         self.idx = None
         self.objects = None
-        self.equipment_nodes = {}
-        self.variables = {}
+        self._nodes: dict[str, object] = {}
+        self._variables: dict[str, object] = {}
+    
+    @property
+    def equipment_nodes(self) -> dict:
+        return self._nodes
+
+    @property
+    def variables(self) -> dict:
+        return self._variables
 
     async def _setup(self):
         self.server = Server()
@@ -20,30 +28,33 @@ class OPCUAServer:
         self.idx = await self.server.register_namespace(self.namespace)
         self.objects = self.server.get_objects_node()
 
-    async def create_equipment_node(self, equipment_name) -> None:
-        equipment_node = await self.objects.add_object(self.idx, equipment_name)
-        self.equipment_nodes[equipment_name] = equipment_node
+    async def create_equipment_node(self, name: str, parent: str | None = None) -> None:
+        parent_node = self._nodes.get(parent) if parent else self.objects
+        if parent_node is None:
+            raise ValueError(f"Parent '{parent}' not found.")
+        node = await parent_node.add_object(self.idx, name)
+        self._nodes[name] = node
 
-    async def add_variable(self, equipment_name, variable_name, initial_value=0.0, writable=False):
-        node = self.equipment_nodes.get(equipment_name)
+    async def add_variable(self, equipment_name: str, variable_name: str, initial_value, writable=False):
+        node = self._nodes.get(equipment_name)
         if node is None:
             raise ValueError(f"Equipment '{equipment_name}' not found.")
         var = await node.add_variable(self.idx, variable_name, initial_value)
         if writable:
             await var.set_writable()
-        self.variables[f"{equipment_name}.{variable_name}"] = var
+        self._variables[f"{equipment_name}.{variable_name}"] = var
         return var
 
-    async def set_value(self, equipment_name, variable_name, value):
+    async def set_value(self, equipment_name: str, variable_name: str, value):
         key = f"{equipment_name}.{variable_name}"
-        var = self.variables.get(key)
+        var = self._variables.get(key)
         if var is None:
             raise ValueError(f"Variable '{key}' not found.")
         await var.write_value(value)
 
-    async def get_value(self, equipment_name, variable_name):
+    async def get_value(self, equipment_name: str, variable_name: str):
         key = f"{equipment_name}.{variable_name}"
-        var = self.variables.get(key)
+        var = self._variables.get(key)
         if var is None:
             raise ValueError(f"Variable '{key}' not found.")
         return await var.read_value()

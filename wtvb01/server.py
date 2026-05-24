@@ -5,11 +5,11 @@ from wtvb01.adapter import WTVB01
 
 
 class WTVB01Server(OPCUAServer):
-    def __init__(self, endpoint="opc.tcp://0.0.0.0:4842", use_virtual_device=True):
+    def __init__(self, endpoint="opc.tcp://192.168.183.1:4842", use_virtual_device=True):
         super().__init__(endpoint=endpoint, namespace="lab-usine")
         self.adapter = WTVB01(virtual=use_virtual_device)
-        if not use_virtual_device:
-            if not self.adapter.connected:
+        if not use_virtual_device:  # noqa: SIM102
+            if not self.adapter.connected:  # noqa: SIM102
                 raise ValueError(f"WTVB01 sensor not connected on port {self.adapter.port}")
 
     async def start(self):

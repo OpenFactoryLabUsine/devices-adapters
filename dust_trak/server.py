@@ -9,7 +9,7 @@ from opcua_base.opcua_server import OPCUAServer
 
 
 class DustTrakServer(OPCUAServer):
-    def __init__(self, endpoint="opc.tcp://0.0.0.0:4841", use_virtual_device=True):
+    def __init__(self, endpoint="opc.tcp://192.168.44.1:4841", use_virtual_device=True):
         super().__init__(endpoint=endpoint, namespace="lab-usine")
         self.use_virtual_device = use_virtual_device
 
