@@ -2,19 +2,9 @@ name: Virtual adapters
 
 on:
   push:
-    paths:
-      - "cnc/**"
-      - "dust_trak/**"
-      - "wtvb01/**"
-      - "opcua_base/**"
-      - ".github/workflows/devices.yml"
+    branches: ["main"]
   pull_request:
-    paths:
-      - "cnc/**"
-      - "dust_trak/**"
-      - "wtvb01/**"
-      - "opcua_base/**"
-      - ".github/workflows/devices.yml"
+    branches: ["main"]
 
 jobs:
   test-and-build:
