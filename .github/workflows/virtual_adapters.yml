@@ -9,6 +9,9 @@ on:
 jobs:
   test-and-build:
     name: "${{ matrix.device.name }}"
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
