@@ -7,4 +7,4 @@ COPY cnc/ ./cnc/
 
 RUN pip install --no-cache-dir -r cnc/requirements.txt
 
-CMD ["python", "-m", "cnc.opcua_server"]
+CMD ["python", "-m", "cnc.server"]
