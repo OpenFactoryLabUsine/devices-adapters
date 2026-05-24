@@ -7,7 +7,7 @@ class CNCAdapter:
         self._start_time = time.time()
         self._state = {
             "CNC_Structure.PositionX": 3.65,
-            "CNC_Structure.PositionY": 0.8,
+            "CNC_Structure.PositionY": 0.80,
             "CNC_Structure.PositionZ": 5.12,
             "CNC_Structure.RotationY": 270.0,
 
