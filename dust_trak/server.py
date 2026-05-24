@@ -1,5 +1,6 @@
 import asyncio
 import sys
+import os
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -42,6 +43,6 @@ class DustTrakServer(OPCUAServer):
             if not self.use_virtual_device:
                 self.adapter.stop_capture()
 
-
 if __name__ == "__main__":
-    asyncio.run(DustTrakServer().run())
+    use_virtual = os.getenv("VIRTUAL_DEVICE", "true").lower() == "true"
+    asyncio.run(DustTrakServer(use_virtual_device=use_virtual).run())

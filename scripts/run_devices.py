@@ -8,10 +8,12 @@ sys.path.insert(0, str(ROOT))
 
 from dust_trak.server import DustTrakServer  # noqa: E402
 from wtvb01.server import WTVB01Server  # noqa: E402
+from cnc.server import CNCServer  # noqa: E402
 
 SERVERS = {
     "dusttrak": DustTrakServer,
     "wtvb01": WTVB01Server,
+    "cnc": CNCServer,
 }
 
 

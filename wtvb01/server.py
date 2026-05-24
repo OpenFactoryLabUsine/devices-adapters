@@ -1,4 +1,5 @@
 import asyncio
+import os
 
 from opcua_base.opcua_server import OPCUAServer
 from wtvb01.adapter import WTVB01
@@ -55,4 +56,5 @@ class WTVB01Server(OPCUAServer):
 
 
 if __name__ == "__main__":
-    asyncio.run(WTVB01Server().run())
+    use_virtual = os.getenv("VIRTUAL_DEVICE", "true").lower() == "true"
+    asyncio.run(WTVB01Server(use_virtual_device=use_virtual).run())

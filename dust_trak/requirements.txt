@@ -1,0 +1,8 @@
+asyncua
+opencv-python
+pyshark
+pyautogui
+pytest
+pytest-asyncio
+pyserial
+ruff
