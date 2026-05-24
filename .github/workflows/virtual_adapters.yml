@@ -1,0 +1,68 @@
+name: Virtual adapters
+
+on:
+  push:
+    paths:
+      - "cnc/**"
+      - "dust_trak/**"
+      - "wtvb01/**"
+      - "opcua_base/**"
+      - ".github/workflows/devices.yml"
+  pull_request:
+    paths:
+      - "cnc/**"
+      - "dust_trak/**"
+      - "wtvb01/**"
+      - "opcua_base/**"
+      - ".github/workflows/devices.yml"
+
+jobs:
+  test-and-build:
+    name: "${{ matrix.device.name }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        device:
+          - name: virtual-cnc
+            dir: cnc
+            image: virtual-cnc-adapter
+          - name: virtual-dust-trak
+            dir: dust_trak
+            image: virtual-dusttrak-adapter
+          - name: virtual-wtvb01
+            dir: wtvb01
+            image: virtual-wtvb01-adapter
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install -r ${{ matrix.device.dir }}/requirements.txt
+
+      - name: Run tests
+        run: pytest ${{ matrix.device.dir }}/tests/ -v
+
+      - name: Log in to GitHub Container Registry
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ matrix.device.dir }}/Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/${{ matrix.device.image }}:latest
+            ghcr.io/${{ github.repository_owner }}/${{ matrix.device.image }}:${{ github.sha }}
