@@ -9,7 +9,7 @@ class CNCAdapter:
             "CNC_Structure.PositionX": 3.65,
             "CNC_Structure.PositionY": 0.80,
             "CNC_Structure.PositionZ": 5.12,
-            "CNC_Structure.RotationY": 270.0,
+            "CNC_Structure.RotationY": 270.00,
 
             "CNC_Bridge.PositionZ": -1000.0,
 
