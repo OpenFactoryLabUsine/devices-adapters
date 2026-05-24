@@ -2,4 +2,4 @@ asyncua
 pytest
 pytest-asyncio
 ruff
-serial
+pyserial
