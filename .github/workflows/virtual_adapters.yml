@@ -47,6 +47,9 @@ jobs:
 
       - name: Run tests
         run: pytest ${{ matrix.device.dir }}/tests/ -v
+        
+      - name: Lowercase repository owner
+        run: echo "repository_owner=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Log in to GitHub Container Registry
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
