@@ -1,1 +1,4 @@
 asyncua
+pytest
+pytest-asyncio
+ruff
