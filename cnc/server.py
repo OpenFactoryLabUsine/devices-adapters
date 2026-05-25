@@ -77,6 +77,7 @@ class CNCServer(OPCUAServer):
 
     async def start(self):
         await super().start()
+        print(f"Starting CNC opcua server on {self.endpoint}")
         for eq in EQUIPMENT_HIERARCHY:
             await self.create_equipment_node(eq["name"], parent=eq["parent"])
         for equipment_name, variable_name, initial_value in EQUIPMENT_VARIABLES:
