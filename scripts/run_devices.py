@@ -6,9 +6,9 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
+from cnc.server import CNCServer  # noqa: E402
 from dust_trak.server import DustTrakServer  # noqa: E402
 from wtvb01.server import WTVB01Server  # noqa: E402
-from cnc.server import CNCServer  # noqa: E402
 
 SERVERS = {
     "dusttrak": DustTrakServer,

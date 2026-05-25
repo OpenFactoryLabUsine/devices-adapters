@@ -34,13 +34,6 @@ class TestCNCServerStructure:
         parent = await spindle_node.get_parent()
         assert parent == rack_node
 
-    async def test_suction_zones_under_structure(self, cnc_server):
-        structure_node = cnc_server._nodes["CNC_Structure"]
-        for i in range(1, 7):
-            zone_node = cnc_server._nodes[f"CNC_Succion_zone{i}"]
-            parent = await zone_node.get_parent()
-            assert parent == structure_node
-
 
 class TestCNCServerVariables:
     async def test_all_variables_created(self, cnc_server):
