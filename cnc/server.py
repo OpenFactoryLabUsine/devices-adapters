@@ -8,16 +8,17 @@ from cnc.adapter import CNCAdapter
 from opcua_base.opcua_server import OPCUAServer
 
 EQUIPMENT_HIERARCHY = [
-    {"name": "CNC_Structure",     "parent": None},
+    {"name": "CNC",               "parent": None},
+    {"name": "CNC_Structure",     "parent": "CNC"},
     {"name": "CNC_Bridge",        "parent": "CNC_Structure"},
     {"name": "CNC_Rack",          "parent": "CNC_Bridge"},
     {"name": "CNC_Spindle",       "parent": "CNC_Rack"},
-    {"name": "CNC_Succion_zone1", "parent": "CNC_Structure"},
-    {"name": "CNC_Succion_zone2", "parent": "CNC_Structure"},
-    {"name": "CNC_Succion_zone3", "parent": "CNC_Structure"},
-    {"name": "CNC_Succion_zone4", "parent": "CNC_Structure"},
-    {"name": "CNC_Succion_zone5", "parent": "CNC_Structure"},
-    {"name": "CNC_Succion_zone6", "parent": "CNC_Structure"},
+    {"name": "CNC_Succion_zone1", "parent": "CNC"},
+    {"name": "CNC_Succion_zone2", "parent": "CNC"},
+    {"name": "CNC_Succion_zone3", "parent": "CNC"},
+    {"name": "CNC_Succion_zone4", "parent": "CNC"},
+    {"name": "CNC_Succion_zone5", "parent": "CNC"},
+    {"name": "CNC_Succion_zone6", "parent": "CNC"},
 ]
 
 # (equipment_name, variable_id, initial_value)
