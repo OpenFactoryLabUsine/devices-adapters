@@ -33,11 +33,10 @@ class DustTrak:
         self.capture_thread = None
         self.running = False
 
-        self.initializer = DustTrakInitializer(current_dir=self.current_dir, readings_average_num=config_data["numberOfReadings"])
-        self.sniffer = DustTrakSniffer(network_interface=self.network_interface, device_ip=self.device_ip, initializer=self.initializer, data_export_type=self.data_export_type, current_dir=self.current_dir)
-        self.csv_logger = DustTrakCSVLogger(csv_file_path=os.path.join(self.current_dir, "logs"), current_dir=self.current_dir)
-
         if not virtual:
+            self.initializer = DustTrakInitializer(current_dir=self.current_dir, readings_average_num=config_data["numberOfReadings"])
+            self.sniffer = DustTrakSniffer(network_interface=self.network_interface, device_ip=self.device_ip, initializer=self.initializer, data_export_type=self.data_export_type, current_dir=self.current_dir)
+            self.csv_logger = DustTrakCSVLogger(csv_file_path=os.path.join(self.current_dir, "logs"), current_dir=self.current_dir)
             self.initializer.launch_dust_trak_monitoring()
 
     def start_capture(self):

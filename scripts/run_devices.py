@@ -17,21 +17,25 @@ SERVERS = {
 }
 
 
-async def main(selected: list[str]):
-    servers = {name: cls() for name, cls in SERVERS.items() if name in selected}
+async def main(selected: list[str], use_virtual: bool):
+    servers = {
+        name: cls(use_virtual_device=use_virtual) 
+        for name, cls in SERVERS.items() 
+        if name in selected
+    }
 
     if not servers:
         print(f"No matching servers found. Available: {list(SERVERS.keys())}")
         sys.exit(1)
 
-    print(f"Starting servers: {list(servers.keys())}")
+    print(f"Starting servers: {list(servers.keys())} (Virtual Mode: {use_virtual})")
 
     try:
         await asyncio.gather(*[s.run() for s in servers.values()])
     except asyncio.CancelledError:
         pass
     finally:
-        await asyncio.gather(*[s.stop() for s in servers.values()])
+        await asyncio.gather(*[s.stop() for s in servers.values() if hasattr(s, 'stop')])
 
 
 if __name__ == "__main__":
@@ -39,7 +43,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "servers",
         nargs="*",
-        default=list(SERVERS.keys()),  # run all if none specified
+        default=list(SERVERS.keys()),
         help=f"Servers to run. Available: {list(SERVERS.keys())}",
     )
 
@@ -49,4 +53,5 @@ if __name__ == "__main__":
         help="Use virtual devices instead of real hardware",
     )
     args = parser.parse_args()
-    asyncio.run(main(args.servers))
+    
+    asyncio.run(main(args.servers, args.virtual))
