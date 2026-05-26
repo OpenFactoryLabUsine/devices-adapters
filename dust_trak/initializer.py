@@ -1,8 +1,6 @@
 import os
 import time
 
-import pyautogui
-
 
 class DustTrakInitializer:
     "Handles GUI interactions to launch and set up DustTrak monitoring"
@@ -15,6 +13,7 @@ class DustTrakInitializer:
 
     def launch_dust_trak_monitoring(self):
         "Launch DustTrak monitoring"
+        import pyautogui
         try:
             pyautogui.hotkey("win", "d")
             time.sleep(2)
@@ -57,6 +56,7 @@ class DustTrakInitializer:
 
     def _open_dust_trak_app(self):
         "Open the dust trak app"
+        import pyautogui
         ## Open from task bar if app was already opened
         task_bar_path = os.path.join(
             self.current_dir, "templates", "dust_trak_task_bar.png"
@@ -98,6 +98,7 @@ class DustTrakInitializer:
 
     def _check_if_on_data_tab(self):
         "Check if already on data tab"
+        import pyautogui
         is_on_data_tab = False
         play_btn_path = os.path.join(self.current_dir, "templates", "play_btn.png")
         if not os.path.exists(play_btn_path):
@@ -124,6 +125,7 @@ class DustTrakInitializer:
 
     def _go_to_data_tab(self):
         "Go to data tab on DustTrak app"
+        import pyautogui
         data_tab_path = os.path.join(self.current_dir, "templates", "data_tab.png")
         if not os.path.exists(data_tab_path):
             print(f"Template image not found at {data_tab_path}")
@@ -138,6 +140,7 @@ class DustTrakInitializer:
 
     def _go_to_connect_tab(self):
         "Go to data tab on DustTrak app"
+        import pyautogui
         connect_tab_path = os.path.join(
             self.current_dir, "templates", "connect_tab.png"
         )
@@ -156,6 +159,7 @@ class DustTrakInitializer:
 
     def _connect_to_instrument(self):
         "Connect to instrument on DustTrak app"
+        import pyautogui
         is_connected = False
         first_attempt = False
         connect_btn_path = os.path.join(
@@ -230,6 +234,7 @@ class DustTrakInitializer:
 
     def _disconnect_from_instrument(self):
         "Disconnect from instrument on DustTrak app"
+        import pyautogui
         disconnect_btn_path = os.path.join(
             self.current_dir, "templates", "disconnect_btn.png"
         )
@@ -246,6 +251,7 @@ class DustTrakInitializer:
 
     def _set_readings_nb(self):
         "Set number of readings in Dust Trak app"
+        import pyautogui
         readings_nb_input_path = os.path.join(
             self.current_dir, "templates", "readings_nb_input.png"
         )
@@ -283,6 +289,7 @@ class DustTrakInitializer:
 
     def _start_monitoring(self):
         "Start monitoring instrument on DustTrak app"
+        import pyautogui
         play_btn_path = os.path.join(self.current_dir, "templates", "play_btn.png")
         if not os.path.exists(play_btn_path):
             print(f"Template image not found at {play_btn_path}")
