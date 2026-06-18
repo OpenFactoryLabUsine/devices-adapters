@@ -11,6 +11,8 @@ MOCK_CONFIG = {
     "data_export_type": "openfactory",
     "device_ip": "169.254.66.117",
     "numberOfReadings": 5,
+    "opcua_server_ip": "0.0.0.0",
+    "opcua_server_port": "4841"
 }
 
 
@@ -21,7 +23,7 @@ def adapter():
         patch("dust_trak.adapter.os.path.dirname", return_value="/fake/dir"),
         patch.object(DustTrakInitializer, "launch_dust_trak_monitoring"),
     ):
-        return DustTrak()
+        return DustTrak(config=MOCK_CONFIG, virtual=False)
 
 
 @pytest.fixture
@@ -30,7 +32,7 @@ def virtual_adapter():
         patch("builtins.open", mock_open(read_data=json.dumps(MOCK_CONFIG))),
         patch("dust_trak.adapter.os.path.dirname", return_value="/fake/dir"),
     ):
-        return DustTrak(virtual=True)
+        return DustTrak(config=MOCK_CONFIG, virtual=True)
 
 
 class TestInit:

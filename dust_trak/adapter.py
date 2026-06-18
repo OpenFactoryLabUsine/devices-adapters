@@ -1,4 +1,3 @@
-import json
 import os
 import random
 import threading
@@ -10,19 +9,14 @@ from dust_trak.sniffer import DustTrakSniffer
 
 class DustTrak:
     "DustTrak device adapter"
-    def __init__(self, virtual=False):
-        config_data = []
+    def __init__(self, config, virtual=False):
         self.virtual = virtual
 
-        self.network_interface = "Ethernet 4"
-        
+        self.network_interface = "Ethernet 3"
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(self.current_dir, "config.json")
-        with open(file_path, encoding="utf-8") as file:
-            config_data = json.load(file)
 
-        self.data_export_type = config_data["data_export_type"]
-        self.device_ip = config_data["device_ip"]
+        self.data_export_type = config["data_export_type"]
+        self.device_ip = config["device_ip"]
 
         self.latest_data = {
             "pm1_concentration": 0.0,
@@ -34,7 +28,7 @@ class DustTrak:
         self.running = False
 
         if not virtual:
-            self.initializer = DustTrakInitializer(current_dir=self.current_dir, readings_average_num=config_data["numberOfReadings"])
+            self.initializer = DustTrakInitializer(current_dir=self.current_dir, readings_average_num=config["numberOfReadings"])
             self.sniffer = DustTrakSniffer(network_interface=self.network_interface, device_ip=self.device_ip, initializer=self.initializer, data_export_type=self.data_export_type, current_dir=self.current_dir)
             self.csv_logger = DustTrakCSVLogger(csv_file_path=os.path.join(self.current_dir, "logs"), current_dir=self.current_dir)
             self.initializer.launch_dust_trak_monitoring()

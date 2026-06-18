@@ -98,12 +98,12 @@ class DustTrakInitializer:
 
     def _check_if_on_data_tab(self):
         "Check if already on data tab"
-        import pyautogui
+        import pyautogui # si je le mets pas la le linting ne passe pas 
         is_on_data_tab = False
         play_btn_path = os.path.join(self.current_dir, "templates", "play_btn.png")
         if not os.path.exists(play_btn_path):
             print(f"Template image not found at {play_btn_path}")
-            return
+            return is_on_data_tab
         try:
             play_btn_location = pyautogui.locateOnScreen(play_btn_path, confidence=0.7)
             is_on_data_tab = play_btn_location is not None
@@ -113,7 +113,7 @@ class DustTrakInitializer:
         stop_btn_path = os.path.join(self.current_dir, "templates", "stop_btn.png")
         if not os.path.exists(stop_btn_path):
             print(f"Template image not found at {stop_btn_path}")
-            return
+            return is_on_data_tab
 
         try:
             stop_btn_location = pyautogui.locateOnScreen(stop_btn_path, confidence=0.7)
