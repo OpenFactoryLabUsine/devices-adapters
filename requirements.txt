@@ -2,6 +2,7 @@ asyncua
 opencv-python
 pyshark
 pyautogui
+Pillow
 pytest
 pytest-asyncio
 pyserial

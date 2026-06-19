@@ -2,6 +2,6 @@
     "data_export_type": "openfactory",
     "device_ip": "169.254.66.117",
     "numberOfReadings": 10,
-    "opcua_server_ip": "10.244.22.61",
+    "opcua_server_ip": "0.0.0.0",
     "opcua_server_port": "4841"
 }
